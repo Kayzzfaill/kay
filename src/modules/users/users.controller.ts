@@ -7,22 +7,14 @@ export class UsersController {
   constructor(private readonly repository: UsersRepository) {}
 
   public routes(): Hono {
-    return new Hono()
-      .get('/', this.findAll.bind(this))
+    return new Hono();
   }
-
-  public async findAll(c: Context): Promise<
-    TypedResponse<ApplicationResult<UserType[]>>
-  > {
+  public async findAll(
+    c: Context<ApplicationEnvironment>
+  ): Promise<TypedResponse<ApplicationResult<UserType[]>>> {
     return c.json({
       success: true,
-      data: [
-        {
-          id: 1,
-          title: "TEST",
-          email: "hello@nke.ru"
-        }
-      ]
-    })
+      data: this.repository.findAll(),
+    });
   }
 }

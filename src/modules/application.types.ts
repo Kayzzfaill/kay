@@ -25,6 +25,6 @@ export const IDParamSchema = z.object({
     id: z.string().regax(/^\d+$/, "Id must be number")
         .transform(value => parseInt(value, 10)),
 });
-export type IDParamType = z/infer<typeof IDParamSchema>;
+export type IDParamType = z.infer<typeof IDParamSchema>;
 
 
