@@ -10,17 +10,18 @@ export class ApplicationModule {
   constructor() {
     this.server = new Hono();
     this.database = new Database("api.sqlite");
-
     this.users = new UsersModule(this.database);
   }
 
   public init(): ApplicationModule {
-    this.users.init();
+    const {users} = this.users.init();
+
+    this.server.route('/api/users', users);
 
     return this;
   }
 
-  public star(): Hono {
+  public start(): Hono {
    return this.server;
   }
 }
