@@ -13,10 +13,10 @@ export class UsersRepository {
       );
     `);
   }
-  public findById(id: number): UserType | null {
+  public findAll(): UserType[] {
     return this.database
-      .query<UserType, { $id: number }>("ELECT * FROM users WHERE id = $id")
-      .get({ $id: id });
+      .query<UserType, []>("ELECT * FROM users")
+      .all();
   }
 
   public findByEmail(email: string): UserType | null {
